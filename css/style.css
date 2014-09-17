@@ -48,6 +48,9 @@
 		color: #4eb980;
 		text-decoration: none;
 	}
+	a.badge{	
+		border-bottom: none;
+	}
 
 		a:hover {
 			border-bottom-color: transparent;
@@ -489,6 +492,9 @@
 			ul.actions li:first-child {
 				padding: 0;
 			}
+			ul.actions li:last-child {
+				padding: 0 1.5em 0 1.5em;
+			}
 
 		ul.actions.vertical li {
 			display: block;
@@ -793,7 +799,7 @@
 			color: #544d55;
 		}
 
-		#header .logo {
+		 .logo {
 			/*background: #4eb980; */
 			background-image: url("../images/icon.png");
 			background-position:  center;
@@ -803,12 +809,23 @@
 			cursor: default;
 			display: inline-block;
 			font-size: 2.25em;
-			height: 2.35em;
-			line-height: 2.35em;
-			margin: 0 0 0.75em 0;
+			
+			margin: 0 0 0.01em 0;
+			width: 0.6em;
+			height: 0.6em;
+		leftine-height: 1em;
 			text-align: center;
-			width: 2.35em;
+			
 		}
+
+		#header .logo {
+		margin: 0 0 0.01em 0;
+		width: 2.35em;
+		height: 2.35em;
+		line-height: 2.35em;
+		}
+
+		
 
 			#header .logo.fa-paper-plane-o:before {
 				left: -0.075em;
