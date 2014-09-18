@@ -1009,10 +1009,12 @@
 	}
 
 	#cities p{
+		text-transform: uppercase;
 		margin:0;
-		color: orange;
+		color: #5b5b5b;
 		text-align: center;
-		font-weight: bold;
+		font-weight: 700;
+		font-family: 'Source Sans Pro', sans-serif;
 
 	}
 
@@ -1020,5 +1022,6 @@
 			
 			margin:0;
 			text-align: center;
-			color: green;
+			color: #6e6e6e;
+			font-family: 'Source Sans Pro', sans-serif;
 		}
