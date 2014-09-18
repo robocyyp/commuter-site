@@ -985,3 +985,23 @@
 			border-bottom: dotted 1px;
 
 		}
+
+	#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+
+	#cities {
+	width: 500px;
+	height: 300px;
+	display:none;
+	background: #ffffff;
+	overflow: auto;  
+   
+	}
