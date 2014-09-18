@@ -998,10 +998,27 @@
 }
 
 	#cities {
-	width: 500px;
-	height: 300px;
+	
+	width: 360px;
+	height: 450px;
 	display:none;
 	background: #ffffff;
 	overflow: auto;  
-   
+	border-radius: 15px;
+	margin:0;
 	}
+
+	#cities p{
+		margin:0;
+		color: orange;
+		text-align: center;
+		font-weight: bold;
+
+	}
+
+		#cities ul{
+			
+			margin:0;
+			text-align: center;
+			color: green;
+		}
