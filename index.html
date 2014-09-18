@@ -337,7 +337,10 @@
 
 			<script type="text/javascript">
         		$(function() {
-           			 $("span[rel*=leanModal]").leanModal({ top : 200, overlay : 0.4, closeButton: ".modal_close" });   
+           			 $("span[rel*=leanModal]").leanModal({ top : 100, overlay : 0.6, closeButton: ".modal_close" });  
+           			 var height = $(window).height();  
+           			 height = height - 200;
+           			 $("#cities").css("height", height);
         		});
 			</script>
 	</body>
