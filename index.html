@@ -21,7 +21,7 @@
 	</head>
 	<body>   
 		<div id="cities">
-		<p>34 города</p>
+			<p>34 города</p>
    		 	<ul>
    		 		<li>Москва</li>
 				<li>Санкт-Петербург</li>
@@ -61,10 +61,51 @@
    		 	<p>Нет твоего города? 
    		 	<br/>Не работает?
    		 	<br/>Тогда напиши нам
-   		 	</p>
-   		 	
-
+   		 	</p>	
 		</div>
+
+		<div id="iosStore" class="store">
+			<h3>:(</h3>
+			<p>Сейчас приложение разработано только на андроид. 
+			<br />
+			Oставьте  почту - и мы оповестим о выходе версии на iOS.
+			</p>
+			<div class="row">
+				<div class="12u">
+					<input type="text" name="mail" placeholder="Почта" />
+				</div>
+			</div>
+
+			<div  class="row">
+				<div id="sendPopup" class="12u">
+					<ul class="actions">
+						<li><input type="submit" value="Отправить" /></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="winStore" class="store">
+			<h3>:(</h3>
+			<p>Сейчас приложение разработано только на андроид. 
+			<br />
+			Оставьте почту - и мы оповестим о выходе версии на Windows Phone.
+			</p>
+			<div class="row">
+				<div class="12u">
+					<input type="text" name="mail" placeholder="Почта" />
+				</div>
+			</div>
+
+			<div  class="row">
+				<div id="sendPopup" class="12u">
+					<ul class="actions">
+						<li><input type="submit" value="Отправить" /></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+
 		<!-- Header -->
 			<div id="header">
 				<span class="logo icon"></span>
@@ -275,11 +316,11 @@
 							<img alt="Get it on Google Play" 
 							src="https://developer.android.com/images/brand/ru_generic_rgb_wo_60.png" />
 						</a></li>
-						<li><a  href="#triggermodal" class="badge">
+						<li><a  rel="leanModal" name="iosStore"  href="#iosStore"  class="badge">
 							<img alt="Get it on App Store" style = "height:60px;"
 							src="images/App_Store_Badge_RU.svg" />
 						</a></li>
-						<li><a  href="#triggermodal" class="badge">
+						<li><a rel="leanModal" name="winStore"  href="#winStore" class="badge">
 							<img alt="Get it on App Store" style = "height:60px;"
 							src="images/258x67_WPS_Download_blk.png" />
 						</a></li>
@@ -341,6 +382,7 @@
 			<script type="text/javascript">
         		$(function() {
            			 $("span[rel*=leanModal]").leanModal({ top : 100, overlay : 0.6, closeButton: ".modal_close" });  
+           			 $("a[rel*=leanModal]").leanModal({ top : 100, overlay : 0.6, closeButton: ".modal_close" }); 
            			 var height = $(window).height();  
            			 height = height - 200;
            			 $("#cities").css("height", height);

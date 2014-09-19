@@ -999,7 +999,7 @@
 
 	#cities {
 	
-	width: 380px;
+	width: 390px;
 	height: 300px;
 	display:none;
 	background: #ffffff;
@@ -1029,3 +1029,25 @@
 			color: #6e6e6e;
 			font-family: 'Source Sans Pro', sans-serif;
 		}
+
+	.store{
+	width: 390px;
+	height: 380px;
+	display:none;
+	background: #ffffff;
+	overflow: auto;  
+	border-radius: 15px;
+	margin:0;
+	padding: 20px 30px 20px 30px;
+	}	
+	.store li,input{
+		width:100%;
+	}
+
+	#sendPopup input, #sendPopup li{
+		padding: 0 !important;
+	}
+	#sendPopup {
+		padding: 15px 0 0 30px;
+	}
+	
