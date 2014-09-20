@@ -64,11 +64,11 @@
    		 	</p>	
 		</div>
 
-		<div id="iosStore" class="store">
+		<div id="store" class="store">
 			<h3>:(</h3>
 			<p>Сейчас приложение разработано только на андроид. 
 			<br />
-			Oставь  почту - и мы оповестим о выходе версии на iOS.
+			Oставь  почту - и мы оповестим о выходе версии на <span id="storeText">iOS</span>.
 			</p>
 			<div class="row">
 				<div class="12u">
@@ -84,6 +84,7 @@
 				</div>
 			</div>
 		</div>
+		<!--
 		<div id="winStore" class="store">
 			<h3>:(</h3>
 			<p>Сейчас приложение разработано только на андроид. 
@@ -104,7 +105,7 @@
 				</div>
 			</div>
 		</div>
-
+		-->
 
 		<!-- Header -->
 			<div id="header">
@@ -316,11 +317,11 @@
 							<img alt="Get it on Google Play" 
 							src="https://developer.android.com/images/brand/ru_generic_rgb_wo_60.png" />
 						</a></li>
-						<li><a  rel="leanModal" name="iosStore"  href="#iosStore"  class="badge">
+						<li><a  rel="leanModal" name="storeios"  href="#store"  class="badge" onclick="$('#storeText').text('iOS');">
 							<img alt="Get it on App Store" style = "height:60px;"
 							src="images/App_Store_Badge_RU.svg" />
 						</a></li>
-						<li><a rel="leanModal" name="winStore"  href="#winStore" class="badge">
+						<li><a rel="leanModal" name="storewin"  href="#store" class="badge" onclick="$('#storeText').text('Windows Phone');">
 							<img alt="Get it on App Store" style = "height:60px;"
 							src="images/258x67_WPS_Download_blk.png" />
 						</a></li>
