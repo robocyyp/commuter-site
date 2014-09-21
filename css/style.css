@@ -928,7 +928,7 @@
 			color: rgba(255, 255, 255, 0.5);
 			font-size: 0.8em;
 			line-height: 1em;
-			margin: 3em 0 0 0;
+			margin: 1em 0 0 0;
 		}
 
 			#footer .copyright li {
@@ -1049,5 +1049,10 @@
 	}
 	#sendPopup {
 		padding: 15px 0 0 30px;
+	}
+
+	.mixPanel{
+		margin:0;
+
 	}
 	
