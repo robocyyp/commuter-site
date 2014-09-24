@@ -290,7 +290,7 @@
     				type: 'POST',
     				url: 'http://nearbus.azurewebsites.net/NearBusService.svc/message/send?sV=v1',
     				crossDomain: true,
-    				data: '{"Email":"test@mail.com","Name":"Nametest","Text":"myText"}',
+    				data: null, //'{"Email":"test@mail.com","Name":"Nametest","Text":"myText"}',
     				dataType: 'json',
 				    success: function(responseData, textStatus, jqXHR) {
 				        var value = responseData.Result;
