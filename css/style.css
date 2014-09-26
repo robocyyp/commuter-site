@@ -323,7 +323,7 @@
 			-o-transition: opacity 0.25s ease-in-out;
 			-ms-transition: opacity 0.25s ease-in-out;
 			transition: opacity 0.25s ease-in-out;
-			background-image: url("images/overlay.png");
+			/* background-image: url("images/overlay.png"); */
 			content: '';
 			display: block;
 			height: 100%;
@@ -1054,5 +1054,18 @@
 	.mixPanel{
 		margin:0;
 
+	}
+
+	.pic1{
+		background-image: url("../images/pic01.png") ;
+		background-size: cover;
+	}
+	.pic2{
+		background-image: url("../images/pic02.png") ;
+		background-size: cover;
+	}
+	.pic3{
+		background-image: url("../images/pic03.png") ;
+		background-size: cover;
 	}
 	
