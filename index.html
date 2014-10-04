@@ -168,11 +168,11 @@
 							<img alt="Get it on Google Play" 
 							src="https://developer.android.com/images/brand/ru_generic_rgb_wo_60.png" />
 						</a></li>
-						<li><a id="appleStoreBadge" rel="leanModal" name="storeios"  href="#store"  class="badge" onclick="$('#storeText').text('iOS');">
+						<li><a id="appleStoreBadge" rel="leanModal" name="storeios"  href="#store"  class="badge" onclick="$('#storeText').text('iOS'); currentStoreType = 1;">
 							<img alt="Get it on App Store" style = "height:60px;"
 							src="images/App_Store_Badge_RU.svg" />
 						</a></li>
-						<li><a id="winPhoneBadge" rel="leanModal" name="storewin"  href="#store" class="badge" onclick="$('#storeText').text('Windows Phone');">
+						<li><a id="winPhoneBadge" rel="leanModal" name="storewin"  href="#store" class="badge" onclick="$('#storeText').text('Windows Phone');currentStoreType = 2;">
 							<img alt="Get it on App Store" style = "height:60px;"
 							src="images/258x67_WPS_Download_blk.png" />
 						</a></li>
@@ -243,6 +243,7 @@
 			</div>
 
 			<script type="text/javascript">
+			var currentStoreType=0;
         		$(function() {
            			 $("span[rel*=leanModal]").leanModal({ top : 100, overlay : 0.6, closeButton: ".modal_close" });  
            			 $("a[rel*=leanModal]").leanModal({ top : 100, overlay : 0.6, closeButton: ".modal_close" }); 
@@ -294,6 +295,7 @@
 
 				$('#appleStoreBadge').on('click', function() {
   				//ga('send', 'event', 'Badge', 'click', 'appleStoreBadge');
+  				
   				analytics.track('Apple Store Badge', {
 					  object: 'badge',
 					  type: 'click'
@@ -339,7 +341,7 @@
 				function sendMessage(){
 					$.ajax({
     				type: 'POST',
-    				url: 'http://nearbus.azurewebsites.net/NearBusService.svc/message/send?sV=v1',
+    				url: 'http://nearbus-test.azurewebsites.net/NearBusService.svc/message/send?sV=v1',
     				//crossDomain: true,
     				data: JSON.stringify({
 					"Email": "test@mail.com",
