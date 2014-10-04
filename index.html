@@ -339,14 +339,38 @@
 				});
 				
 				function sendMessage(){
+					var textMessage = document.getElementsByName("message")[0].value;
+					var emailMessage = document.getElementsByName("email")[0].value;
+					var nameMessage = document.getElementsByName("name")[0].value;
+
 					$.ajax({
     				type: 'POST',
     				url: 'http://nearbus-test.azurewebsites.net/NearBusService.svc/message/send?sV=v1',
     				//crossDomain: true,
     				data: JSON.stringify({
-					"Email": "test@mail.com",
-					"Name": "Nametest",
-					"Text": "myText"
+					"Email": emailMessage,
+					"Name": nameMessage,
+					"Text": textMessage
+					}),
+    				contentType: "application/json",
+        			dataType: 'json',
+				    success: function(responseData, textStatus, jqXHR) {
+				        var value = responseData.Result;
+				    },
+				    error: function (responseData, textStatus, errorThrown) {
+				        alert('POST failed.');
+				    }
+				});
+				}
+
+				function sendEmail(){
+					var mail = document.getElementsByName("email")[0].value;
+					$.ajax({
+    				type: 'POST',
+    				url: 'http://nearbus-test.azurewebsites.net/NearBusService.svc/mail/send?sT='+currentStoreType+'&sV=v1',
+    				//crossDomain: true,
+    				data: JSON.stringify({
+					"email": mail
 					}),
     				contentType: "application/json",
         			dataType: 'json',
