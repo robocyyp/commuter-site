@@ -310,11 +310,21 @@
 				});
 				$('#sendMailFromPopup').on('click', function() {
   				//ga('send', 'event', 'button', 'click', 'sendMailFromPopup');
-  				analytics.track('Send Mail From Pop Up', {
-					  object: 'button',
-					  type: 'click'
+  				if (currentStoreType == 1){
+	  				analytics.track('Send Mail From IOS Pop Up', {
+						  object: 'button',
+						  type: 'click'
+						});
 					});
-				});
+				}
+				else if(currentStoreType == 2){
+	  				analytics.track('Send Mail From WIN Pop Up', {
+						  object: 'button',
+						  type: 'click'
+						});
+					});
+				}
+				sendEmail();
 				$('#sendMessage').on('click', function() {
   				//ga('send', 'event', 'button', 'click', 'sendMessage');
   				analytics.track('Send Message', {
@@ -346,7 +356,7 @@
 					$.ajax({
     				type: 'POST',
     				url: 'http://nearbus-test.azurewebsites.net/NearBusService.svc/message/send?sV=v1',
-    				//crossDomain: true,
+    				crossDomain: true,
     				data: JSON.stringify({
 					"Email": emailMessage,
 					"Name": nameMessage,
