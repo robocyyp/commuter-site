@@ -315,16 +315,16 @@
 						  object: 'button',
 						  type: 'click'
 						});
-					});
-				}
+					}
 				else if(currentStoreType == 2){
 	  				analytics.track('Send Mail From WIN Pop Up', {
 						  object: 'button',
 						  type: 'click'
 						});
-					});
-				}
-				sendEmail();
+					}
+				sendEmail();	
+				});
+				
 				$('#sendMessage').on('click', function() {
   				//ga('send', 'event', 'button', 'click', 'sendMessage');
   				analytics.track('Send Message', {
@@ -371,7 +371,7 @@
 				        alert('POST failed.');
 				    }
 				});
-				}
+				};
 
 				function sendEmail(){
 					var mail = document.getElementsByName("email")[0].value;
@@ -391,7 +391,7 @@
 				        alert('POST failed.');
 				    }
 				});
-				}
+				};
 
 			</script>
 	</body>
