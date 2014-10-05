@@ -380,7 +380,7 @@
     				type: 'POST',
     				url: 'http://nearbus-test.azurewebsites.net/NearBusService.svc/mail/send?sT='+currentStoreType+'&sV=v1',
     				crossDomain: true,
-    				data: mail,
+    				data: '"'+mail+'"',
     				contentType: "application/json",
         			dataType: 'json',
 				    success: function(responseData, textStatus, jqXHR) {
