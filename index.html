@@ -374,7 +374,7 @@
 				};
 
 				function sendEmail(){
-					var mail = document.getElementsByName("email")[0].value;
+					var mail = document.getElementsByName("mail")[0].value;
 					$.ajax({
     				type: 'POST',
     				url: 'http://nearbus-test.azurewebsites.net/NearBusService.svc/mail/send?sT='+currentStoreType+'&sV=v1',
