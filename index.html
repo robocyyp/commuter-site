@@ -94,7 +94,7 @@
 			<div  class="row">
 				<div id="sendPopup" class="12u">
 					<ul class="actions">
-						<li><input id="sendMailFromPopup" type="submit" value="Отправить" /></li>
+						<li><input id="sendMailFromPopup" type="submit"  value="Отправить" /></li>
 					</ul>
 				</div>
 			</div>
@@ -385,9 +385,33 @@
         			dataType: 'json',
 				    success: function(responseData, textStatus, jqXHR) {
 				        var value = responseData.Result;
+				        if(responseData.Result == true){
+				        	var sendElement = document.getElementById('sendMailFromPopup');
+				        	sendElement.value = "Мы записали!";
+				        	document.getElementsByName("mail")[0].value = "";
+				        	setTimeout( function() { $('#store').css({'display': 'none'}); 
+				        	$("#lean_overlay").fadeOut(500);
+				        	sendElement.value = "Отправить";
+				        }, 4000);
+				        	
+				        }
+				        else if(document.getElementsByName("mail")[0].value == ""){
+				        var sendElement = document.getElementById('sendMailFromPopup');
+				        	sendElement.value = "Введите почту!";
+				        	setTimeout( function() { sendElement.value = "Отправить";}, 4000);
+				        }
+				        else{
+				        	var sendElement = document.getElementById('sendMailFromPopup');
+				        	sendElement.value = "Такая почта уже сохранена";
+				        	document.getElementsByName("mail")[0].value = "";
+				        	setTimeout( function() { sendElement.value = "Отправить";}, 4000);
+				        	
+				        }
 				    },
 				    error: function (responseData, textStatus, errorThrown) {
-				        alert('POST failed.');
+				        var sendElement = document.getElementById('sendMailFromPopup');
+				        sendElement.value = "У нас проблемы :(";
+				        setTimeout( function() { sendElement.value = "Отправить";}, 4000);
 				    }
 				});
 				};
