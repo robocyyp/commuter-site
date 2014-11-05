@@ -1,0 +1,172 @@
+
+body{
+ width: auto;
+margin: 0;
+background: #FBE7C5;
+}
+div#mainForecastDiv{
+
+ text-align: right;
+/*width:480px;*/
+/*background-color: #999;*/
+/*margin:0 auto;*/
+color: #ffffff;
+background: rgba(0, 0, 0, 0.87);
+-webkit-box-shadow: 0px 0px 22px 0px rgba(50, 50, 50, 0.65);
+-moz-box-shadow:    0px 0px 22px 0px rgba(50, 50, 50, 0.65);
+box-shadow:         0px 0px 22px 0px rgba(50, 50, 50, 0.65);
+/*border-width: 1px;
+border-radius: 20px;*/
+/*padding: 10px;*/
+}
+
+
+.forecastHeader{
+   width: 100%;
+   font-size:28px;
+   text-align: center;
+   background: rgba(255, 255, 255, 0.54);
+}
+
+.forecastHeader .headerLabel{
+   width: 100%;
+   
+}
+
+
+
+.forecastBody{
+   width: 100%;
+   font-size:24px;
+
+}
+
+.forecastBody .adBlock{
+   width: 100%;
+   height: 50px;
+}
+
+.forecastBody .adBlock img {
+   width: 100%;
+}
+
+.forecastBody .route{
+   width: 100%;
+   display: table;
+  margin:8px 0;
+border-bottom-width:1px;
+   border-bottom-style: dashed;
+   border-bottom-color: #9E9E9;
+  
+}
+
+.route .routeType-cell{
+  display: table-cell;
+  width: 14%;
+  vertical-align:middle;
+  text-align:center; 
+  
+}
+
+.route-cell .routeType-icon{
+  width: 40px;
+  height: 40px;
+  display: table-cell;
+  text-align:center; 
+  vertical-align:middle;  
+  /*background: url('../res/icon/checkmark-128.png') center no-repeat;
+  background-size: contain;*/
+}
+
+.route .routeName-cell{
+  display: table-cell;
+  width: 12%;
+  text-align:left;
+  vertical-align:middle;    
+}
+  .routeName-cell.bus{
+    color: #39A37E;
+  }
+  .routeName-cell.trolley{
+    color: #5EB0C6;
+  }
+  .routeName-cell.tramWay{
+    color: #E64C65;
+  }
+  .routeName-cell.ship{
+    color: #A83264;
+  }
+  .routeName-cell.marshrutka{
+    color: #F68C3D;
+  }
+  .routeName-cell.other{
+    color: ;
+  }
+
+
+
+
+.route .routeForecast-cell{
+  display: table-cell;
+  width: 70%;
+  
+  
+}
+    .routeForecast-cell .right{
+  display: table-cell;
+  vertical-align:middle;
+  float:right;
+  line-height: 40px;
+}
+
+
+
+.routeForecast-cell .right .forecast-time{
+height: 40px;
+text-align:right;
+font-size: 24px;
+display: inline-block;
+margin: 0 0 0 15px;  
+  
+
+}
+
+
+
+
+.forecastFooter{
+   width: 100%;
+   font-size:16px;
+   display:table;
+   cursor: pointer;
+   background: rgba(255, 255, 255, 0.54);
+}
+
+  .forecastFooter .right{
+
+     font-size:16px;
+     display: table-cell;
+    vertical-align:middle;
+    float:right;
+    /*line-height: 30px;*/
+    margin: 4px 8px 0 0;
+  }
+
+    .forecastFooter .right .text{
+     font-size:22px;
+     display: inline-block;
+     margin-right:14px;
+     vertical-align:top;
+     margin-top: 6px;
+     
+
+    }
+    .forecastFooter .right .icon{
+     display: inline-block;
+     vertical-align:top;
+    }
+
+    .forecastFooter .icon img{
+      width:40px;
+     height:40px;
+    }

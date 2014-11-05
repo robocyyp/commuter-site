@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Commuter: Городской транспорт. Web версия.</title>
+	<!--  <meta name="viewport" content="initial-scale=1.0, user-scalable=no"> -->
+	<meta charset="utf-8">
+	<link rel='stylesheet' type='text/css' href='css/style.css' />
+	<link rel="shortcut icon" href="../res/icon.ico">
+	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, initial-scale=1.0, maximum-scale=1.0,user-scalable=no">
+
+		<script type="text/javascript">
+		window.analytics=window.analytics||[],window.analytics.methods=["identify","group","track","page","pageview","alias","ready","on","once","off","trackLink","trackForm","trackClick","trackSubmit"],window.analytics.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),window.analytics.push(a),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var key=window.analytics.methods[i];window.analytics[key]=window.analytics.factory(key)}window.analytics.load=function(t){if(!document.getElementById("analytics-js")){var a=document.createElement("script");a.type="text/javascript",a.id="analytics-js",a.async=!0,a.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.io/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n)}},window.analytics.SNIPPET_VERSION="2.0.9",
+		window.analytics.load("lycvogwwmn");
+		analytics.page("Web version forecast");
+
+		//analytics.page('Signup');
+		</script>
+</head>
+<body>
+
+</body>
+<script>
+	
+
+var stationInfo={
+	name: "",
+	lat : 0,
+	lng : 0,
+	descr : "",
+	city : "",
+	guid : ""
+};
+
+
+//using window.location.hash
+$.fn.urlHash = function()
+{
+  return window.location.hash.replace('#','');
+};
+
+function naturalSorter(as, bs){
+    var a, b, a1, b1, i= 0, n, L,
+    rx=/(\.\d+)|(\d+(\.\d+)?)|([^\d.]+)|(\.\D+)|(\.$)/g;
+    if(as=== bs) return 0;
+    a= as.toLowerCase().match(rx);
+    b= bs.toLowerCase().match(rx);
+    L= a.length;
+    while(i<L){
+        if(!b[i]) return 1;
+        a1= a[i],
+        b1= b[i++];
+        if(a1!== b1){
+            n= a1-b1;
+            if(!isNaN(n)) return n;
+            return a1>b1? 1:-1;
+        }
+    }
+    return b[i]? -1:0;
+};
+
+function requestStationInfo(city, guid){
+	var url = "http://nearbus-test.azurewebsites.net/NearBusService.svc/station/info?guid="+guid+"&city="+city+"&u=web";
+	$.ajax({
+		url: url,
+		crossDomain: true,
+		//context: document.body,
+		success: function(responseData, textStatus, jqXHR){
+			var markers = responseData;
+			if(responseData.Result == true){
+			  	// 
+			  	stationInfo.name = responseData.Station.Name;
+			  	stationInfo.lat = responseData.Station.Lat;
+			  	stationInfo.lng = responseData.Station.Lng;
+			  	stationInfo.guid = responseData.Station.GUID;
+			  	stationInfo.city = responseData.Station.CityName;
+			  	if(responseData.Station.End){
+			  		stationInfo.descr = responseData.Station.End;
+				} else if(responseData.Station.Description){
+			  		stationInfo.descr = responseData.Station.Description;
+				} 
+			  	requestStationForecast(stationInfo.city,stationInfo.guid);
+			}
+		},
+		error: function (responseData, textStatus, errorThrown) {
+			alert('POST failed.');
+		}
+	});
+
+};
+
+function requestStationForecast(city, guid){
+	var url = "http://nearbus-test.azurewebsites.net/NearBusService.svc/station/forecast?guid="+guid+"&city="+city+"&u=web";
+	$.ajax({
+		url: url,
+		crossDomain: true,
+		//context: document.body,
+		success: function(responseData, textStatus, jqXHR){
+			var markers = responseData;
+			if(responseData.Result == true){
+			  	// first todo filter result
+			  	createShedule(responseData.Vehicles,'mainForecastDiv');
+			  	setPositionForecast('mainForecastDiv');
+			}
+		},
+		error: function (responseData, textStatus, errorThrown) {
+			alert('POST failed.');
+		}
+	});
+
+};
+
+function createShedule(forecast, id){
+	var mainDiv =  jQuery('<div/>', {
+		id: id
+	});
+	var headerDiv = jQuery('<div/>', {
+		class: 'forecastHeader'
+	});
+	headerDiv = $(headerDiv).append(jQuery('<div/>', {
+		class: 'headerLabel',
+		text: stationInfo.name
+		
+	}));
+	var bodyDiv = jQuery('<div/>', {
+		class: 'forecastBody'
+	});
+	// полностью отсортированный массив
+	var routeTimeType = sortForecast(forecast);
+	var adCount = 0;
+	routeTimeType.forEach(function(routesTime){
+	    adCount++;
+	    if(adCount == 3 || adCount == 5){
+	    	//todo добавить рекламный блок
+	    	/*<div id="container">
+			    <img src="something.jpg" alt="" />
+			</div>*/
+	    }
+		var src;
+		var typeName;	
+		switch(routesTime.Type){
+			case 1:  src="../res/1.png";
+				typeName = 'bus';
+				break;
+			case 2:  src= "../res/2.png";
+				typeName = 'trolley';
+				break;
+			case 3:  src= "../res/3.png";
+				typeName = 'tramWay';
+				break;
+			case 4:  src= "../res/4.png";
+				typeName = 'ship';
+				break;
+			case 5:  src= "../res/5.png";
+				typeName = 'marshrutka';
+				break;
+			default:  src= "../res/1.png";
+				typeName = 'other';
+				break;
+		}
+
+		routesTime.Routes.forEach(function(routeTime){
+			var routeDiv = jQuery('<div/>', {
+				class: 'route'
+			});
+				var routeTypeCellDiv = jQuery('<div/>', {
+				class: 'routeType-cell'
+			});
+			var routeTypeCellIconDiv = jQuery('<div/>', {
+				class: 'routeType-icon'
+			});
+			var img = jQuery('<img/>', { src: src});
+			$(routeTypeCellIconDiv).append(img);
+			$(routeTypeCellDiv).append(routeTypeCellIconDiv);
+			$(routeDiv).append(routeTypeCellDiv);
+
+			var routeNameCellDiv = jQuery('<div/>', {
+				class: 'routeName-cell '+ typeName,
+				text: routeTime.Route
+			});
+			$(routeDiv).append(routeNameCellDiv);
+
+			var routeForecastCellDiv = jQuery('<div/>', {
+					class: 'routeForecast-cell'
+				});
+
+			var routeForecastCellDivRight = jQuery('<div/>', {
+					class: 'right'
+				});				
+			routeTime.Time.forEach(function(time){
+
+				var minutes = Math.round(time/60);
+				var divTime = jQuery('<div/>', {
+					class: 'forecast-time',
+					html: minutes + ' мин.'
+				});
+				$(routeForecastCellDivRight).append(divTime);
+			});
+			$(routeForecastCellDiv).append(routeForecastCellDivRight);	
+				$(routeDiv).append(routeForecastCellDiv);
+				$(bodyDiv).append(routeDiv);
+		});
+	});
+	var footerDiv = jQuery('<div/>', {
+		class: 'forecastFooter'
+	});
+
+
+	var rightFooter = jQuery('<div/>', {
+		class: 'right'
+	});
+
+	var updateText = jQuery('<div/>', {
+		class: 'text',
+		text: "Обновить"
+	});
+
+	var icon = jQuery('<div/>', {
+		class: 'icon'
+	});
+	var iconImg  = jQuery('<img/>', { src: "../res/icon.png"});
+
+	$(icon).append(iconImg);
+	$(rightFooter).append(updateText);
+	$(rightFooter).append(icon);
+	$(footerDiv).append(rightFooter);
+
+	$(mainDiv).append(headerDiv);
+	$(mainDiv).append(bodyDiv);
+	$(mainDiv).append(footerDiv);
+	if($('#'+id).length ==0){
+		$('body').append(mainDiv);
+	}
+	else{
+		$('#'+id).replaceWith(mainDiv);
+	}
+	$('.forecastFooter').click(function(){
+		if(stationInfo.guid != ''){
+			analytics.track('Manual Update Button click', {
+			  object: 'button',
+			  type: 'click'
+			});
+			requestStationForecast(stationInfo.city,stationInfo.guid);
+			
+		}
+	});
+};
+
+function sortForecast(forecast){
+	var routeTimeType=[];
+	var types = [];
+    forecast.forEach(function(v){
+      if(!types[v.TypeId]){
+        types[v.TypeId] = v.TypeId;
+      }
+    });
+    // отсортированные типы маршрутов 
+    types.sort(function(a, b){return a-b});
+    
+    // пройдемся по массиву и собирем все маршруты для этого типа
+    types.forEach(function(v){
+
+    	var routesArray = [];
+    	forecast.forEach(function(f){
+    		if(f.TypeId == v){
+    			var routeObj = {Name:f.RouteName, TimeRemaining:f.TimeRemaining};
+    			routesArray.push(routeObj);
+    		}
+    	});
+    	// теперь назодим уникальные маршруты и сортируем их
+    	var routeUnique=[];
+    	routesArray.forEach(function(r){
+		    if(!routeUnique[r.Name]){
+		       routeUnique[r.Name] = r.Name;
+		    }
+		});
+
+		routeUnique.sort(function(o1, o2) {
+		    return naturalSorter(o1, o2);
+		});
+		// теперь для каждого маршрута находим его время и сортируем его по убыванию
+		var routeTime=[];
+		routeUnique.forEach(function(r){
+			var times = [];
+			routesArray.forEach(function(a){
+				if(a.Name == r){
+					times.push(a.TimeRemaining);
+				}
+			});
+			times.sort(function(a, b){return a-b});
+			var obj = {Route:r, Time:times};
+			routeTime.push(obj);
+		});
+		var objWithType = {Type:v, Routes:routeTime};
+		routeTimeType.push(objWithType);
+    });
+    return routeTimeType;
+};
+
+
+// задать размеры и положение 
+function setPositionForecast(id){
+	var windowHeight =  (window.innerHeight > 0) ? window.innerHeight : screen.height;
+	var windowWidth = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+	var forecastCurrentHeight = $('#'+id). outerHeight( true );
+	var forecastHeaderCurrentHeight = $('#'+id + ' .forecastHeader'). outerHeight( true );
+	var forecastBodyCurrentHeight = $('#'+id + ' .forecastBody'). outerHeight( true );
+	var forecastFooterCurrentHeight = $('#'+id + ' .forecastFooter'). outerHeight( true );
+	var forecastWidth = 600;
+	var forecastTopMargin = 20;
+	var automargin = "auto";
+	var padding = 10;
+
+	
+	if(windowHeight>forecastCurrentHeight){
+		forecastTopMargin = 40;
+	}
+	if(windowWidth < 600){
+		forecastWidth = windowWidth - padding*2;
+		automargin = 0;
+		// для телефона c маленьким отступом
+		forecastTopMargin = 10;
+	} else{
+		forecastWidth += -padding*2
+	}
+
+
+	if(forecastTopMargin*2 + forecastBodyCurrentHeight + forecastHeaderCurrentHeight + forecastFooterCurrentHeight <  windowHeight){
+		var heightForBody = windowHeight - forecastTopMargin*2 - forecastHeaderCurrentHeight - forecastFooterCurrentHeight - padding*2;
+		$('#'+id+ ' .forecastBody').css({height:heightForBody+'px'});
+	}
+
+	$('#'+id).css({width:forecastWidth+'px', margin: forecastTopMargin+ "px "+ automargin, padding: padding+'px'});
+};
+
+
+var urlhash = $.fn.urlHash();
+var arraySplit = urlhash.split('/');
+
+var guid=arraySplit[1];
+var city=arraySplit[0];
+
+if(!urlhash || urlhash == '' || !guid || !city){
+	//открываем страницу с выбором остановки
+	var win = window.open('http://robocyyp.github.io/commuter-web', '_blank');
+	if(win){
+	    //Browser has allowed it to be opened
+	    win.focus();
+	}
+}
+
+requestStationInfo(city,guid);	
+	
+	</script>
+	</html>
