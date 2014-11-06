@@ -36,7 +36,7 @@
 	</head>
 	<body>   
 		<div id="cities">
-			<p>35 городов</p>
+			<p>36 городов</p>
    		 	<ul>
    		 		<li>Москва</li>
 				<li>Санкт-Петербург</li>
@@ -58,6 +58,7 @@
 				<li>Курск</li>
 				<li>Мурманск</li>
 				<li>Новосибирск</li>
+				<li>Омск</li>
 				<li>Орёл</li>
 				<li>Пенза</li>
 				<li>Рязань</li>
@@ -82,7 +83,7 @@
 
 		<div id="store" class="store">
 			<h3>:(</h3>
-			<p>Сейчас приложение разработано только на андроид. 
+			<p>Сейчас разработана <a id="webVersionLink" href="http://commuter.snaprix.com/web"><span class="label">Web версия</span></a> и приложение на Android 
 			<br />
 			Oставь  почту - и мы оповестим о выходе версии на <span id="storeText">iOS</span>.
 			</p>
@@ -141,7 +142,7 @@
 						</a>-->
 						<div class="content">
 							<h3>1. Немного везения</h3>
-							<p>В нашей базе <span id="citiesPopUpLink" class="trigger" rel="leanModal" name="cities" href="#cities">35 городов</span>, и список постоянно растет. Просто добавь виджет из списка на рабочий стол и найти остановку на карте твоего города. Если твоего города еще нет - <a id="writeUsFromText" href="#questions" >напиши нам</a>.</p>
+							<p>В нашей базе <span id="citiesPopUpLink" class="trigger" rel="leanModal" name="cities" href="#cities">36 городов</span>, и список постоянно растет. Просто добавь виджет из списка на рабочий стол и найти остановку на карте твоего города. Если твоего города еще нет - <a id="writeUsFromText" href="#questions" >напиши нам</a>.</p>
 						</div>
 					</section>
 					<section class="feature right">
@@ -167,15 +168,19 @@
 					<ul class="actions">
 						<li><a  id="googlePlayBadge" href="https://play.google.com/store/apps/details?id=com.snaprix.commuter" class="badge"> 
 							<img alt="Get it on Google Play" 
-							src="https://developer.android.com/images/brand/ru_generic_rgb_wo_60.png" />
+							src="images/google_play.png" />
 						</a></li>
 						<li><a id="appleStoreBadge" rel="leanModal" name="storeios"  href="#store"  class="badge" onclick="$('#storeText').text('iOS'); currentStoreType = 1;">
 							<img alt="Get it on App Store" style = "height:60px;"
-							src="images/App_Store_Badge_RU.svg" />
+							src="images/app_store_badge.png" />
 						</a></li>
 						<li><a id="winPhoneBadge" rel="leanModal" name="storewin"  href="#store" class="badge" onclick="$('#storeText').text('Windows Phone');currentStoreType = 2;">
 							<img alt="Get it on App Store" style = "height:60px;"
-							src="images/258x67_WPS_Download_blk.png" />
+							src="images/winphonebadge.png" />
+						</a></li>
+						<li><a  id="webVersionBadge" href="http://commuter.snaprix.com/web" class="badge"> 
+							<img alt="Go to Web verion" 
+							src="images/webbadge.png" />
 						</a></li>
 					</ul>
 				</footer>
@@ -309,6 +314,27 @@
 					  type: 'click'
 					});
 				});
+				$('#webVersionBadge').on('click', function() {
+  				analytics.track('Web version Badge', {
+					  object: 'Badge',
+					  type: 'click'
+					});
+				});
+				$('#webVersionLink').on('click', function() {
+  				if (currentStoreType == 1){
+	  				analytics.track('Web version link from iOS', {
+						  object: 'link',
+						  type: 'click'
+						});
+					}
+				else if(currentStoreType == 2){
+	  				analytics.track('Web version link from Win', {
+						  object: 'link',
+						  type: 'click'
+						});
+					}
+				});
+
 				$('#sendMailFromPopup').on('click', function() {
   				//ga('send', 'event', 'button', 'click', 'sendMailFromPopup');
   				if (currentStoreType == 1){
