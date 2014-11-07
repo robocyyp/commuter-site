@@ -297,12 +297,13 @@ function sortForecast(forecast){
     		}
     	});
     	// теперь назодим уникальные маршруты и сортируем их
-    	var routeUnique=[];
-    	routesArray.forEach(function(r){
-		    if(!routeUnique[r.Name]){
-		       routeUnique[r.Name] = r.Name;
-		    }
-		});
+    	var routeUnique=routesArray.getUniqueNames();
+  //   	var routeUnique=[];
+  //   	routesArray.forEach(function(r){
+		//     if(!routeUnique[r.Name]){
+		//        routeUnique.push(r.Name);
+		//     }
+		// });
 
 		routeUnique.sort(function(o1, o2) {
 		    return naturalSorter(o1, o2);
@@ -362,6 +363,17 @@ function setPositionForecast(id){
 	$('#'+id).css({width:forecastWidth+'px', margin: forecastTopMargin+ "px "+ automargin, padding: padding+'px'});
 };
 
+Array.prototype.getUniqueNames = function(){
+   var u = {}, a = [];
+   for(var i = 0, l = this.length; i < l; ++i){
+      if(u.hasOwnProperty(this[i].Name)) {
+         continue;
+      }
+      a.push(this[i].Name);
+      u[this[i].Name] = 1;
+   }
+   return a;
+}
 
 var urlhash = $.fn.urlHash();
 var arraySplit = urlhash.split('/');
