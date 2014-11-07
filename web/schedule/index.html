@@ -84,7 +84,11 @@ function requestStationInfo(city, guid){
 			}
 		},
 		error: function (responseData, textStatus, errorThrown) {
-			alert('POST failed.');
+			// еще раз запросить через 15 секунд
+			setTimeout( function() { 
+				requestStationInfo(city,guid);
+	        }, 15000);	
+			
 		}
 	});
 
@@ -118,7 +122,10 @@ function requestStationForecast(city, guid){
 			}
 		},
 		error: function (responseData, textStatus, errorThrown) {
-			alert('POST failed.');
+			// еще раз запросить через 15 секунд
+			setTimeout( function() { 
+				requestStationForecast(stationInfo.city,stationInfo.guid);
+	        }, 15000);	
 		}
 	});
 
