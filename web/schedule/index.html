@@ -32,6 +32,7 @@ var stationInfo={
 	guid : ""
 };
 
+var haveSuccessRequest = false;
 
 //using window.location.hash
 $.fn.urlHash = function()
@@ -97,10 +98,23 @@ function requestStationForecast(city, guid){
 		//context: document.body,
 		success: function(responseData, textStatus, jqXHR){
 			var markers = responseData;
+			//запрашивать данные каждые N секунд
+			setTimeout( function() { 
+					requestStationForecast(stationInfo.city,stationInfo.guid);
+	        	}, 30000);		
 			if(responseData.Result == true){
 			  	// first todo filter result
-			  	createShedule(responseData.Vehicles,'mainForecastDiv');
-			  	setPositionForecast('mainForecastDiv');
+			  	
+			  	
+			  	if((responseData.Vehicles.length == 0 && haveSuccessRequest == false)|| (responseData.Vehicles.length > 0)) {	  	
+				  	createShedule(responseData.Vehicles,'mainForecastDiv');
+				  	setPositionForecast('mainForecastDiv');
+				}
+				
+				if(responseData.Vehicles.length >0){
+			  		haveSuccessRequest = true;
+			  	}
+
 			}
 		},
 		error: function (responseData, textStatus, errorThrown) {
@@ -110,97 +124,105 @@ function requestStationForecast(city, guid){
 
 };
 
-function createShedule(forecast, id){
+function createShedule(forecast, id, isBlank){
 	var mainDiv =  jQuery('<div/>', {
 		id: id
 	});
 	var headerDiv = jQuery('<div/>', {
 		class: 'forecastHeader'
 	});
+	var stationName;
+	if(isBlank == true){
+		stationName = "Идет загрузка данных...";
+	} else{
+		stationName = stationInfo.name;
+	}
 	headerDiv = $(headerDiv).append(jQuery('<div/>', {
 		class: 'headerLabel',
-		text: stationInfo.name
+		text: stationName
 		
 	}));
 	var bodyDiv = jQuery('<div/>', {
 		class: 'forecastBody'
 	});
 	// полностью отсортированный массив
-	var routeTimeType = sortForecast(forecast);
-	var adCount = 0;
-	routeTimeType.forEach(function(routesTime){
-	    adCount++;
-	    if(adCount == 3 || adCount == 5){
-	    	//todo добавить рекламный блок
-	    	/*<div id="container">
-			    <img src="something.jpg" alt="" />
-			</div>*/
-	    }
-		var src;
-		var typeName;	
-		switch(routesTime.Type){
-			case 1:  src="../res/1.png";
-				typeName = 'bus';
-				break;
-			case 2:  src= "../res/2.png";
-				typeName = 'trolley';
-				break;
-			case 3:  src= "../res/3.png";
-				typeName = 'tramWay';
-				break;
-			case 4:  src= "../res/4.png";
-				typeName = 'ship';
-				break;
-			case 5:  src= "../res/5.png";
-				typeName = 'marshrutka';
-				break;
-			default:  src= "../res/1.png";
-				typeName = 'other';
-				break;
-		}
+	if(isBlank != true){
+		var routeTimeType = sortForecast(forecast);
+		var adCount = 0;
+		routeTimeType.forEach(function(routesTime){
+		    adCount++;
+		    if(adCount == 3 || adCount == 5){
+		    	//todo добавить рекламный блок
+		    	/*<div id="container">
+				    <img src="something.jpg" alt="" />
+				</div>*/
+		    }
+			var src;
+			var typeName;	
+			switch(routesTime.Type){
+				case 1:  src="../res/1.png";
+					typeName = 'bus';
+					break;
+				case 2:  src= "../res/2.png";
+					typeName = 'trolley';
+					break;
+				case 3:  src= "../res/3.png";
+					typeName = 'tramWay';
+					break;
+				case 4:  src= "../res/4.png";
+					typeName = 'ship';
+					break;
+				case 5:  src= "../res/5.png";
+					typeName = 'marshrutka';
+					break;
+				default:  src= "../res/1.png";
+					typeName = 'other';
+					break;
+			}
 
-		routesTime.Routes.forEach(function(routeTime){
-			var routeDiv = jQuery('<div/>', {
-				class: 'route'
-			});
-				var routeTypeCellDiv = jQuery('<div/>', {
-				class: 'routeType-cell'
-			});
-			var routeTypeCellIconDiv = jQuery('<div/>', {
-				class: 'routeType-icon'
-			});
-			var img = jQuery('<img/>', { src: src});
-			$(routeTypeCellIconDiv).append(img);
-			$(routeTypeCellDiv).append(routeTypeCellIconDiv);
-			$(routeDiv).append(routeTypeCellDiv);
-
-			var routeNameCellDiv = jQuery('<div/>', {
-				class: 'routeName-cell '+ typeName,
-				text: routeTime.Route
-			});
-			$(routeDiv).append(routeNameCellDiv);
-
-			var routeForecastCellDiv = jQuery('<div/>', {
-					class: 'routeForecast-cell'
+			routesTime.Routes.forEach(function(routeTime){
+				var routeDiv = jQuery('<div/>', {
+					class: 'route'
 				});
-
-			var routeForecastCellDivRight = jQuery('<div/>', {
-					class: 'right'
-				});				
-			routeTime.Time.forEach(function(time){
-
-				var minutes = Math.round(time/60);
-				var divTime = jQuery('<div/>', {
-					class: 'forecast-time',
-					html: minutes + ' мин.'
+					var routeTypeCellDiv = jQuery('<div/>', {
+					class: 'routeType-cell'
 				});
-				$(routeForecastCellDivRight).append(divTime);
+				var routeTypeCellIconDiv = jQuery('<div/>', {
+					class: 'routeType-icon'
+				});
+				var img = jQuery('<img/>', { src: src});
+				$(routeTypeCellIconDiv).append(img);
+				$(routeTypeCellDiv).append(routeTypeCellIconDiv);
+				$(routeDiv).append(routeTypeCellDiv);
+
+				var routeNameCellDiv = jQuery('<div/>', {
+					class: 'routeName-cell '+ typeName,
+					text: routeTime.Route
+				});
+				$(routeDiv).append(routeNameCellDiv);
+
+				var routeForecastCellDiv = jQuery('<div/>', {
+						class: 'routeForecast-cell'
+					});
+
+				var routeForecastCellDivRight = jQuery('<div/>', {
+						class: 'right'
+					});				
+				routeTime.Time.forEach(function(time){
+
+					var minutes = Math.round(time/60);
+					var divTime = jQuery('<div/>', {
+						class: 'forecast-time',
+						html: minutes + ' мин.'
+					});
+					$(routeForecastCellDivRight).append(divTime);
+				});
+				$(routeForecastCellDiv).append(routeForecastCellDivRight);	
+					$(routeDiv).append(routeForecastCellDiv);
+					$(bodyDiv).append(routeDiv);
 			});
-			$(routeForecastCellDiv).append(routeForecastCellDivRight);	
-				$(routeDiv).append(routeForecastCellDiv);
-				$(bodyDiv).append(routeDiv);
 		});
-	});
+	}
 	var footerDiv = jQuery('<div/>', {
 		class: 'forecastFooter'
 	});
@@ -348,7 +370,8 @@ if(!urlhash || urlhash == '' || !guid || !city){
 	    win.focus();
 	}
 }
-
+createShedule(null,'mainForecastDiv', true);
+setPositionForecast('mainForecastDiv');
 requestStationInfo(city,guid);	
 	
 	</script>
