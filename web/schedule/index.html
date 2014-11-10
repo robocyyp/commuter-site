@@ -106,7 +106,7 @@ function requestStationForecast(city, guid){
 			setTimeout( function() { 
 					requestStationForecast(stationInfo.city,stationInfo.guid);
 	        	}, 30000);		
-			if(responseData.Result == true){
+			//if(responseData.Result == true){
 			  	// first todo filter result
 			  	
 			  	
@@ -119,7 +119,7 @@ function requestStationForecast(city, guid){
 			  		haveSuccessRequest = true;
 			  	}
 
-			}
+			//}
 		},
 		error: function (responseData, textStatus, errorThrown) {
 			// еще раз запросить через 15 секунд
@@ -373,7 +373,7 @@ Array.prototype.getUniqueNames = function(){
       u[this[i].Name] = 1;
    }
    return a;
-}
+};
 
 var urlhash = $.fn.urlHash();
 var arraySplit = urlhash.split('/');
