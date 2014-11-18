@@ -213,7 +213,7 @@ function checkNeedRequest(){
 
 function requestStations(point){
   window.setTimeout(function() {
-   var url = "http://nearbus-test.azurewebsites.net/NearBusService.svc/station/find?lat="+point.lat()+"&lng="+point.lng()+"&q=20";
+   var url = "http://nearbus-test.azurewebsites.net/NearBusService.svc/station/find?lat="+point.lat()+"&lng="+point.lng()+"&q=20&u=web";
    $.ajax({
     url: url,
     crossDomain: true,
