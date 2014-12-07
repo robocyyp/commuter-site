@@ -213,10 +213,10 @@ function checkNeedRequest(){
 
 function requestStations(point){
   window.setTimeout(function() {
-   var url = "http://nearbus-test.azurewebsites.net/NearBusService.svc/station/find?lat="+point.lat()+"&lng="+point.lng()+"&q=20&u=web";
+   var url = "http://commuter.azurewebsites.net/NearBusService.svc/station/find?lat="+point.lat()+"&lng="+point.lng()+"&q=20&u=web";
    $.ajax({
     url: url,
-    crossDomain: true,
+    //crossDomain: true,
     //context: document.body,
     success: function(responseData, textStatus, jqXHR){
      var markers = responseData;

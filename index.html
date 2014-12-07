@@ -382,7 +382,7 @@
 
 					$.ajax({
     				type: 'POST',
-    				url: 'http://nearbus-test.azurewebsites.net/NearBusService.svc/message/send?sV=v1',
+    				url: 'http://commuter.azurewebsites.net/NearBusService.svc/message/send?sV=v1',
     				crossDomain: true,
     				data: JSON.stringify({
 					"Email": emailMessage,
@@ -405,7 +405,7 @@
 					var json = JSON.stringify({"email":mail});
 					$.ajax({
     				type: 'POST',
-    				url: 'http://nearbus-test.azurewebsites.net/NearBusService.svc/mail/send?sT='+currentStoreType+'&sV=v1',
+    				url: 'http://commuter.azurewebsites.net/NearBusService.svc/mail/send?sT='+currentStoreType+'&sV=v1',
     				crossDomain: true,
     				data: '"'+mail+'"',
     				contentType: "application/json",

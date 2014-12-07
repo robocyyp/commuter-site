@@ -61,7 +61,7 @@ function naturalSorter(as, bs){
 };
 
 function requestStationInfo(city, guid){
-	var url = "http://nearbus-test.azurewebsites.net/NearBusService.svc/station/info?guid="+guid+"&city="+city+"&u=web";
+	var url = "http://commuter.azurewebsites.net/NearBusService.svc/station/info?guid="+guid+"&city="+city+"&u=web";
 	$.ajax({
 		url: url,
 		crossDomain: true,
@@ -95,7 +95,7 @@ function requestStationInfo(city, guid){
 };
 
 function requestStationForecast(city, guid){
-	var url = "http://nearbus-test.azurewebsites.net/NearBusService.svc/station/forecast?guid="+guid+"&city="+city+"&u=web";
+	var url = "http://commuter.azurewebsites.net/NearBusService.svc/station/forecast?guid="+guid+"&city="+city+"&u=web";
 	$.ajax({
 		url: url,
 		crossDomain: true,
