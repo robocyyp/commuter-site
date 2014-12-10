@@ -48,19 +48,24 @@
             // from the edge of the map
             controlDiv.style.padding = '26px 6px 6px 6px';
 
+            var controlMargin = document.createElement('div');
+            controlMargin.style.padding = '1px';
+            controlMargin.style.borderStyle = 'solid';
+            controlMargin.style.borderWidth = '1px';
+            controlMargin.style.borderColor = 'grey';
+            controlMargin.style.backgroundColor = 'whitesmoke';
             // Set CSS for the control border
             var controlUI = document.createElement('div');
             //controlUI.style.backgroundColor = 'white';
             controlUI.style.background = 'whitesmoke url(res/location.png) 0 0/180px 18px no-repeat';
             //controlDiv.style.backgroundColor = 'whitesmoke';
-            controlUI.style.borderStyle = 'solid';
-            controlUI.style.borderWidth = '1px';
-            controlUI.style.borderColor = 'grey';
+            
             controlUI.style.padding = '9px';
             controlUI.style.cursor = 'pointer';
             //controlUI.style.textAlign = 'center';
             controlUI.title = 'Click to set the map Your Location';
-            controlDiv.appendChild(controlUI);
+            controlMargin.appendChild(controlUI);
+            controlDiv.appendChild(controlMargin);
 
             // // Set CSS for the control interior
             // var controlText = document.createElement('div');
