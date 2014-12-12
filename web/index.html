@@ -263,9 +263,11 @@
         function checkNeedRequest() {
             var currentCenterPoint = map.getCenter();
             if (!lastSearchedPoint) {
-                if (!pos) {
-                    lastSearchedPoint = currentCenterPoint;
-                    requestStations(lastSearchedPoint);
+                if (!pos) { 
+                	if(currentCenterPoint){
+	                    lastSearchedPoint = currentCenterPoint;
+	                    requestStations(lastSearchedPoint);
+	                }
                 } else {
                     lastSearchedPoint = pos;
                     requestStations(lastSearchedPoint);
