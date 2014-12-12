@@ -141,7 +141,7 @@
             if (arraySplit && arraySplit.length > 0) {
                 lat = arraySplit[0];
                 lng = arraySplit[1];
-                if(lat && lng && lat != 'undefined' && lng != 'undefined' ){
+                if (lat && lng) {
                     pos = new google.maps.LatLng(lat, lng);
                     map.setCenter(pos);
                     locationIsFound = true;
@@ -150,7 +150,7 @@
             if (!locationIsFound) {
                 lat = getCookie('lat');
                 lng = getCookie('lng');
-                if (lat && lng) {
+                if(lat && lng && lat != 'undefined' && lng != 'undefined' ){
                     pos = new google.maps.LatLng(lat, lng);
                     map.setCenter(pos);
                     locationIsFound = true;
