@@ -196,14 +196,15 @@
             google.maps.event.addListener(map, 'center_changed', function () {
 
 
-                if (checkZoom() == true) {
-                    checkNeedRequest();
-                }
+                
                 var currentCenterPoint = map.getCenter();
                 var lat = '', lng = '';
                 if (currentCenterPoint) {
                     lng = currentCenterPoint.B;
                     lat = currentCenterPoint.k;
+                }
+                if (checkZoom() == true) {
+                    checkNeedRequest();
                 }
                 setCookie('lat', lat, { expires: 20000000 });
                 setCookie('lng', lng, { expires: 20000000 });
