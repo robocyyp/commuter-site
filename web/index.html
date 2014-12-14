@@ -676,8 +676,9 @@
 
         $(window).resize(function () {
             waitForFinalEvent(function () {
-                //alert('Resize...');
-                //...
+                var height = window.innerHeight;
+            $('p.socialbuttons').css('top', height - 45 + 'px');
+            
             }, 500, "draw buttons");
         });
 
