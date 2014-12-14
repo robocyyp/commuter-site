@@ -401,10 +401,10 @@ var waitForFinalEvent = (function () {
         timers[uniqueId] = setTimeout(callback, ms);
     };
 })();
-(window).resize(function () {
+$(window).resize(function () {
     waitForFinalEvent(function () {
         setPositionForecast('mainForecastDiv');
-    }, 500, "draw buttons");
+    }, 500, "draw window");
 });
 createShedule(null,'mainForecastDiv', true);
 setPositionForecast('mainForecastDiv');
