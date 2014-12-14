@@ -389,6 +389,23 @@ if(!urlhash || urlhash == '' || !guid || !city){
 	    win.focus();
 	}
 }
+var waitForFinalEvent = (function () {
+    var timers = {};
+    return function (callback, ms, uniqueId) {
+        if (!uniqueId) {
+            uniqueId = "Don't call this twice without a uniqueId";
+        }
+        if (timers[uniqueId]) {
+            clearTimeout(timers[uniqueId]);
+        }
+        timers[uniqueId] = setTimeout(callback, ms);
+    };
+})();
+(window).resize(function () {
+    waitForFinalEvent(function () {
+        setPositionForecast('mainForecastDiv');
+    }, 500, "draw buttons");
+});
 createShedule(null,'mainForecastDiv', true);
 setPositionForecast('mainForecastDiv');
 requestStationInfo(city,guid);	
