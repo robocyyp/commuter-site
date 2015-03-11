@@ -242,13 +242,9 @@
                 else {
                     infowindow.setPosition(currentCenterPoint);
                     infowindow.setContent(generateContent('Приблизь карту!', 'smallZoom'));
-                    if (infowindow.B == null) {
-                        infowindow = new google.maps.InfoWindow({
-                            map: map,
-                            position: currentCenterPoint,
-                            //size: {100,100},
-                            content: generateContent('Приблизь карту!', 'smallZoom')
-                        });
+                    if (infowindow.map == null  ) {
+                        infowindow.setMap(map);
+                        
                     }
                 }
                 return false;
